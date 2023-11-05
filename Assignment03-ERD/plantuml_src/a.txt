@@ -1,0 +1,66 @@
+@startuml
+entity CatalogEntity {
+	name: text
+	price: double
+	remain: number
+}
+
+entity CartItemEntity {
+	count: number
+}
+
+entity UserEntity {
+}
+
+entity ShipInfoEntity {
+	fullname: text
+	phone: text
+	address: text
+	instruction: text
+}
+
+entity InvoiceEntity {
+	date: date
+	status: number
+}
+
+entity InvoiceRushItemEntity {
+	count: number
+}
+
+entity InvoiceItemEntity {
+	count: number
+}
+
+entity RushInfoEntity {
+	address: text
+	instruction: text
+}
+
+entity ProviceEntity {
+	name : text
+}
+
+entity PaymentResult {
+	transactionId : number
+	date : date
+	ammount : number
+	note : text
+	status : number
+	desc : text
+}
+
+UserEntity ||--|| CartEntity
+CartEntity ||--|{ CartItemEntity
+CartItemEntity |o-|| CatalogEntity
+InvoiceEntity ||--|| ShipInfoEntity
+InvoiceItemEntity |o-|| CatalogEntity
+InvoiceEntity ||--|{ InvoiceItemEntity
+InvoiceEntity ||--o{ InvoiceRushItemEntity
+InvoiceEntity |o-|| PaymentResult
+InvoiceEntity |o-|| RushInfoEntity
+RushInfoEntity }|-o| ProviceEntity
+ShipInfoEntity }|-o| ProviceEntity
+ShipInfoEntity }o--|| UserEntity 
+
+@enduml
