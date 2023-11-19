@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bbe9f643-bd87-4bc4-bece-47c3661721db" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/AimsApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/controller/PlaceOrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/Cart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/CartItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/ICart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/PlaceOrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/PlaceOrderState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/Province.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/RushForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/domain/ShipForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/entity/CartEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/entity/CatalogEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/repository/ICartRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/services/ICartService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/services/ICatalog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/services/IPlaceOrderStateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/services/IProvince.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/ui/BackgroundPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/ui/MasterFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/ui/PlaceOrderUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/ui/RushShipFormUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/ui/Screen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/ui/ShipFormUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/ui/ViewCartUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/validator/VnPhone.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/annk/aims/validator/VnPhoneValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/place_order.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/annk/aims/ui/PlaceOrderUITest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/annk/aims/ui/ShipFormUITest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/annk/aims/ui/ViewCartUITest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jrt://E:/bf3313155d9000ccea0c63d0d2563016/jdk!/java.base/java/util/Queue.class" root0="SKIP_INSPECTION" />
+    <setting file="jrt://E:/bf3313155d9000ccea0c63d0d2563016/jdk!/java.desktop/javax/swing/JComboBox.class" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2YLtTIuqzdA4NIw2KCPtVtOODSL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_directory_selection": "E:/AIMS/src/main/java/annk/aims/domain",
+    "last_opened_file_path": "E:/AIMS/src/main/resources",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="annk.aims.services" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\AIMS\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\AIMS\src\main\resources\icon" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="annk.aims.domain" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="annk.aims.domain" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="annk.aims" />
+      <recent name="annk.aims.ui" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.PlaceOrderUITest.uiTest">
+    <configuration name="PlaceOrderUITest.uiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AIMS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="annk.aims.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="annk.aims.ui" />
+      <option name="MAIN_CLASS_NAME" value="annk.aims.ui.PlaceOrderUITest" />
+      <option name="METHOD_NAME" value="uiTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShipFormUITest.tc1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AIMS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="annk.aims.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="annk.aims.ui" />
+      <option name="MAIN_CLASS_NAME" value="annk.aims.ui.ShipFormUITest" />
+      <option name="METHOD_NAME" value="tc1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShipFormUITest.tc2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AIMS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="annk.aims.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="annk.aims.ui" />
+      <option name="MAIN_CLASS_NAME" value="annk.aims.ui.ShipFormUITest" />
+      <option name="METHOD_NAME" value="tc2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShipFormUITest.uiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AIMS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="annk.aims.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="annk.aims.ui" />
+      <option name="MAIN_CLASS_NAME" value="annk.aims.ui.ShipFormUITest" />
+      <option name="METHOD_NAME" value="uiTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ViewCartUITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AIMS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="annk.aims.ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="annk.aims.ui" />
+      <option name="MAIN_CLASS_NAME" value="annk.aims.ui.ViewCartUITest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.PlaceOrderUITest.uiTest" />
+        <item itemvalue="JUnit.ShipFormUITest.tc2" />
+        <item itemvalue="JUnit.ShipFormUITest.uiTest" />
+        <item itemvalue="JUnit.ViewCartUITest" />
+        <item itemvalue="JUnit.ShipFormUITest.tc1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bbe9f643-bd87-4bc4-bece-47c3661721db" name="Changes" comment="" />
+      <created>1700316696777</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1700316696777</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
