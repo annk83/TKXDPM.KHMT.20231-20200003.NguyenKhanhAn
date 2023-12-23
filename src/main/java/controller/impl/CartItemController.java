@@ -1,7 +1,8 @@
 package controller.impl;
 
-import controller.ICartItemController;
+import controller.cart.ICartItemController;
 import domain.ICartItemDomain;
+import utils.IEtc;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,8 +11,8 @@ import java.io.IOException;
 public class CartItemController extends BaseController implements ICartItemController {
     private final ICartItemDomain cartItem;
     private final CartController parrent;
-    CartItemController(ICartItemDomain ICartItemDomain, CartController parrent) {
-        super();
+    CartItemController(ICartItemDomain ICartItemDomain, CartController parrent, IEtc iEtc) {
+        super(iEtc);
         this.cartItem = ICartItemDomain;
         this.parrent = parrent;
     }
@@ -28,7 +29,7 @@ public class CartItemController extends BaseController implements ICartItemContr
 
     @Override
     public String getTotalPrice() {
-        return formatMoney(cartItem.getPrice());
+        return formatMoney(cartItem.getTotalPrice());
     }
 
     @Override
@@ -68,6 +69,6 @@ public class CartItemController extends BaseController implements ICartItemContr
 
     @Override
     public Image getImage() throws IOException {
-        return ImageIO.read(cartItem.getImageData());
+        return ImageIO.read(cartItem.getImage());
     }
 }

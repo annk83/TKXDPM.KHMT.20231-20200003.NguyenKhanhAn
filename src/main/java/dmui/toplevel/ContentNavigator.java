@@ -17,7 +17,7 @@ public class ContentNavigator {
         mp.put(contentContent.getClass(), contentContent);
     }
 
-    BaseContent get(Class<? extends BaseContent> panelClass) {
+    public BaseContent get(Class<? extends BaseContent> panelClass) {
         return mp.get(panelClass);
     }
 
@@ -26,6 +26,7 @@ public class ContentNavigator {
         var c = get(panelClass);
         if(c == null)
             throw new IllegalStateException("Khong co man hinh '%s'".formatted(panelClass.getSimpleName()));
+        c.setContentNavigator(this);
         screen.setContent(c);
     }
 }

@@ -1,4 +1,4 @@
-package controller;
+package controller.cart;
 
 import java.awt.*;
 import java.io.IOException;

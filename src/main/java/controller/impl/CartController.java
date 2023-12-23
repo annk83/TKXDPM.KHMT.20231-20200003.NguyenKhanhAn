@@ -1,22 +1,26 @@
 package controller.impl;
 
-import controller.ICartController;
-import controller.ICartItemController;
-import controller.IEtcController;
-import controller.IPaginatorController;
+import controller.cart.ICartController;
+import controller.cart.ICartItemController;
+import controller.order.IOrderController;
+import repo.IProvinceRepo;
+import utils.IEtc;
+import controller.utils.IPaginatorController;
 import domain.ICartDomain;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class CartController extends BaseController implements ICartController {
     final ICartDomain cart;
     final BoundedPaginator paginator;
+    final IProvinceRepo iProvinceRepo;
 
-    public CartController(ICartDomain cart, IEtcController etc) {
-        super();
+    public CartController(ICartDomain cart, IEtc etc, IProvinceRepo iProvinceRepo) {
+        super(etc);
         this.cart = cart;
         paginator = new BoundedPaginator(this::getItemTypeCount, etc.getDefaultPageSize());
+        this.iProvinceRepo = iProvinceRepo;
     }
 
     @Override
@@ -46,6 +50,12 @@ public class CartController extends BaseController implements ICartController {
 
     @Override
     public List<ICartItemController> getPage(int u, int v) {
-        return cart.getPage(u, v).stream().map(i->(ICartItemController)new CartItemController(i, this)).toList();
+        return cart.getPage(u, v).stream().map(i->(ICartItemController)new CartItemController(i, this, config)).toList();
+    }
+
+    @Override
+    public Optional<IOrderController> payOrder() {
+        if(cart.hasEnough()) return Optional.of(new OrderController(config, cart.startOrder(), iProvinceRepo));
+        else return Optional.empty();
     }
 }

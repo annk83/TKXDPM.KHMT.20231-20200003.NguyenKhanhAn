@@ -3,8 +3,10 @@ package domain.impl;
 import dmui.IMessageDisplayer;
 import domain.ICartDomain;
 import domain.ICartItemDomain;
+import domain.IOrderDomain;
 import repo.IItemRepository;
 import repo.ItemDeletedException;
+import utils.IEtc;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,10 +18,12 @@ public class LocalCart implements ICartDomain {
     private final List<ICartItemDomain> items;
     private final Date savedDate;
     private final IItemRepository repository;
+    private final IEtc config;
     private final IMessageDisplayer messager;
-    public LocalCart(InputStream is, IItemRepository iItemProvider, IMessageDisplayer iMessageDisplay) throws IOException {
+    public LocalCart(InputStream is, IItemRepository iItemProvider, IMessageDisplayer iMessageDisplay, IEtc etc) throws IOException {
         Properties properties = new Properties();
         messager = iMessageDisplay;
+        this.config = etc;
         properties.load(is);
         idMap = new HashMap<>();
         this.repository = iItemProvider;
@@ -65,7 +69,7 @@ public class LocalCart implements ICartDomain {
 
     @Override
     public long getRawPrice() {
-        return items.stream().map(ICartItemDomain::getPrice).reduce(Long::sum).orElse(0L);
+        return items.stream().map(ICartItemDomain::getTotalPrice).reduce(Long::sum).orElse(0L);
     }
 
     @Override
@@ -81,6 +85,16 @@ public class LocalCart implements ICartDomain {
     @Override
     public int countItem() {
         return items.stream().map(ICartItemDomain::getCount).reduce(Integer::sum).orElse(0);
+    }
+
+    @Override
+    public boolean hasEnough() {
+        return items.stream().allMatch(ICartItemDomain::hasEnough);
+    }
+
+    @Override
+    public IOrderDomain startOrder() {
+        return new LocalOrder(config, items.stream().map(ICartItemDomain::getItemId).toList(), items.stream().map(ICartItemDomain::getCount).toList(), null, repository, messager);
     }
 
     public void saveToOutputStream(OutputStream os) throws IOException {

@@ -1,9 +1,10 @@
 package dmui.content;
 
-import controller.IPaginatorController;
+import controller.utils.IPaginatorController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemListener;
 
 public class PaginatorUI extends BasePanel {
     private final JLabel description;
@@ -12,8 +13,12 @@ public class PaginatorUI extends BasePanel {
     private final JButton last;
     private final JButton first;
     private final DefaultComboBoxModel<Integer> pageSizeModel;
+    private final JComboBox<Integer> chooser;
+    private IPaginatorController controller;
 
-    public PaginatorUI(IPaginatorController controller, java.util.List<Integer> size) {
+    private ItemListener itemListener;
+
+    public PaginatorUI() {
         super(new BorderLayout());
         JPanel left = new JPanel();
         this.add(left, BorderLayout.LINE_END);
@@ -24,8 +29,7 @@ public class PaginatorUI extends BasePanel {
         last = new JButton(">>");
         first = new JButton("<<");
         pageSizeModel = new DefaultComboBoxModel<>();
-        JComboBox<Integer> chooser = new JComboBox<>(pageSizeModel);
-        chooser.addItemListener(e -> controller.setPageSize((Integer)e.getItem()));
+        chooser = new JComboBox<>(pageSizeModel);
         left.add(description);
         left.add(first);
         left.add(prev);
@@ -33,14 +37,26 @@ public class PaginatorUI extends BasePanel {
         left.add(last);
         left.add(new JLabel("Item per page"));
         left.add(chooser);
+    }
+    public PaginatorUI(IPaginatorController controller, java.util.List<Integer> sizes) {
+        this();
+        setController(controller);
+        setPageSizeList(sizes);
+    }
+
+    public void setController(IPaginatorController controller) {
+        this.controller = controller;
+
+        if(itemListener != null) chooser.removeItemListener(itemListener);
+        chooser.addItemListener(itemListener = e -> controller.setPageSize((Integer)e.getItem()));
         controller.addCallback(this::render);
         controller.invokeAllCallback();
-        setPageSizeList(size);
 
         next.addActionListener(ev->controller.nextPage());
         prev.addActionListener(ev->controller.prevPage());
         last.addActionListener(ev->controller.lastPage());
         first.addActionListener(ev->controller.firstPage());
+
     }
     public void setPageSizeList(java.util.List<Integer> sizes) {
         if(sizes == null || sizes.isEmpty()) throw new IllegalArgumentException("Not null or empty");

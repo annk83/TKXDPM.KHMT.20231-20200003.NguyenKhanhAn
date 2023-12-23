@@ -11,4 +11,7 @@ public interface IItemDomain {
     boolean hasEnough(int count);
     long getRemain();
     InputStream getImage() throws IOException;
+    int getWeight();
+
+    boolean isRushable();
 }

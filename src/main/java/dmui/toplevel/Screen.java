@@ -29,11 +29,12 @@ public class Screen extends JPanel{
         currentContent = jPanel;
         title.setText(jPanel.getTitle());
         invalidate();
+        jPanel.reset();
     }
 
     protected JComponent getFooter() {
         //TODO: Tao footer
-        return new JPanel();
+        return new JLabel("Nguyen Khanh An - 20200003");
     }
 
     private JComponent createHeaderBar(String menuName) {

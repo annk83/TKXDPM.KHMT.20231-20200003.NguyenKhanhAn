@@ -15,7 +15,7 @@ public class NoProxyRepository implements IItemRepository {
         var i = new SimpleItem();
         try {
             return simpleConnection.doStuff(conn -> {
-                try (var stmt = conn.prepareStatement("SELECT type, title, price, remain, image, deleted FROM items WHERE item_id = ?")) {
+                try (var stmt = conn.prepareStatement("SELECT type, title, price, remain, image, deleted, weight, rushable FROM items WHERE item_id = ?")) {
                     stmt.setInt(1, id);
                     var rs = stmt.executeQuery();
                     if (rs.next()) {
@@ -27,6 +27,8 @@ public class NoProxyRepository implements IItemRepository {
                         var k = rs.getAsciiStream(5);
                         i.setImage(k != null? k.readAllBytes() : null);
                         i.setDeleted(rs.getBoolean(6));
+                        i.setWeight(rs.getInt(7));
+                        i.setRushable(rs.getBoolean(8));
                         if (i.isDeleted()) throw new ItemDeletedException();
                         return i;
                     } else throw new NoSuchElementException();

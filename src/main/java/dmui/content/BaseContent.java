@@ -1,12 +1,16 @@
 package dmui.content;
 
+import dmui.toplevel.ContentNavigator;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 
-public class BaseContent extends BasePanel {
+public abstract class BaseContent extends BasePanel {
     @Getter
     protected final String title;
+    @Setter
+    protected ContentNavigator contentNavigator;
 
     public BaseContent(String title) {
         super();
@@ -17,4 +21,6 @@ public class BaseContent extends BasePanel {
         super(layoutManager);
         this.title = title;
     }
+
+    public abstract void reset();
 }

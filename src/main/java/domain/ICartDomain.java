@@ -11,5 +11,7 @@ public interface ICartDomain {
     Date getSavedDate();
     int countItemType();
     int countItem();
+    boolean hasEnough();
+    IOrderDomain startOrder();
 }
 

@@ -18,6 +18,8 @@ public class SimpleItem implements IItemDomain {
     @Getter(AccessLevel.NONE)
     private byte[] image;
     private boolean isDeleted;
+    private int weight;
+    private boolean rushable;
 
     @Override
     public boolean hasEnough(int count) {
@@ -28,5 +30,15 @@ public class SimpleItem implements IItemDomain {
     public InputStream getImage() {
         if(image == null) return InputStream.nullInputStream();
         return new ByteArrayInputStream(image);
+    }
+
+    @Override
+    public int getWeight() {
+        return weight;
+    }
+
+    @Override
+    public boolean isRushable() {
+        return rushable;
     }
 }

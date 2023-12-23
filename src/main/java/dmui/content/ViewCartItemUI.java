@@ -1,6 +1,6 @@
 package dmui.content;
 
-import controller.ICartItemController;
+import controller.cart.ICartItemController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
@@ -9,7 +9,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-public class ViewCartItemUI extends BasePanel {
+public class ViewCartItemUI extends AbstractUI<ICartItemController> {
+
     private ICartItemController cartItemController;
     private final JLabel title = new JLabel();
     private final JLabel type = new JLabel();
@@ -22,7 +23,7 @@ public class ViewCartItemUI extends BasePanel {
     private final JTextField count = new JTextField();
     private final ViewCartUI viewCartUI;
 
-    ViewCartItemUI(ViewCartUI viewCartUI, ICartItemController controller) {
+    ViewCartItemUI(ViewCartUI viewCartUI) {
         super(new BorderLayout());
         this.viewCartUI = viewCartUI;
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -40,7 +41,7 @@ public class ViewCartItemUI extends BasePanel {
         contentPanel.add(outOfProduct);
         add(contentPanel, BorderLayout.CENTER);
         count.setColumns(5);
-        
+
         JPanel option = new JPanel();
         option.setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
@@ -57,18 +58,6 @@ public class ViewCartItemUI extends BasePanel {
         option.add(remove, c);
         add(option, BorderLayout.LINE_END);
 
-        minus.addActionListener(e->{
-            controller.minus();
-            init();
-        });
-        remove.addActionListener(e->{
-            controller.remove();
-            init();
-        });
-        add.addActionListener(e->{
-            controller.plus();
-            init();
-        });
         count.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -83,6 +72,10 @@ public class ViewCartItemUI extends BasePanel {
                 }
             }
         });
+    }
+
+    ViewCartItemUI(ViewCartUI viewCartUI, ICartItemController controller) {
+        this(viewCartUI);
         setController(controller);
     }
 
@@ -98,7 +91,25 @@ public class ViewCartItemUI extends BasePanel {
 
     public void setController(ICartItemController controller) {
         if(controller == null) throw new IllegalArgumentException("Must not be null");
+        for(var i : minus.getActionListeners())
+            minus.removeActionListener(i);
+        for(var i : remove.getActionListeners())
+            remove.removeActionListener(i);
+        for(var i : add.getActionListeners())
+            add.removeActionListener(i);
         this.cartItemController = controller;
+        minus.addActionListener(e->{
+            controller.minus();
+            init();
+        });
+        remove.addActionListener(e->{
+            controller.remove();
+            init();
+        });
+        add.addActionListener(e->{
+            controller.plus();
+            init();
+        });
         init();
     }
 
@@ -126,6 +137,6 @@ public class ViewCartItemUI extends BasePanel {
             add.setEnabled(false);
             outOfProduct.setVisible(true);
         }
-        this.viewCartUI.updateTotalLabel();
+        this.viewCartUI.reset();
     }
 }

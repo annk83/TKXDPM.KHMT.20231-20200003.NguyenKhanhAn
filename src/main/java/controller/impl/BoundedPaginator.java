@@ -1,14 +1,12 @@
 package controller.impl;
 
-import controller.IPaginatorController;
+import controller.utils.IPaginatorController;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class BoundedPaginator implements IPaginatorController {
     private final Supplier<Integer> boundService;
-    private final List<PageControlCallback> callbacks = new ArrayList<>();
+    private final IdMapped<PageControlCallback> callbacks = new IdMapped<>();
     private int pageSize;
     private int start;
     private int end;
@@ -21,9 +19,14 @@ public class BoundedPaginator implements IPaginatorController {
     }
 
     @Override
-    public void addCallback(PageControlCallback callback) {
-        callbacks.add(callback);
+    public int addCallback(PageControlCallback callback) {
         callback.render(start, end, tt);
+        return callbacks.addObj(callback);
+    }
+
+    @Override
+    public void removeCallback(int id) {
+        callbacks.removeByKey(id);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class BoundedPaginator implements IPaginatorController {
 
     @Override
     public void invokeAllCallback() {
-        callbacks.forEach(callback -> callback.render(start, end, tt));
+        callbacks.foreach(callback -> callback.render(start, Math.min(end,tt), tt));
     }
     @Override
     public void nextPage() {

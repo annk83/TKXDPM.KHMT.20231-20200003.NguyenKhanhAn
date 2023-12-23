@@ -45,6 +45,9 @@ public class BasePanel extends JPanel {
         displayError("Exception !!!",exception.getMessage(), stringWriter.toString());
     }
 
+    protected boolean confirmDialog(String title, String message) {
+        return JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, message, title, JOptionPane.YES_NO_OPTION);
+    }
     protected void displayError(String title, String message, String full) {
         JDialog jDialog = new JDialog(SwingUtilities.getWindowAncestor(this));
         //TODO: Code dep hon

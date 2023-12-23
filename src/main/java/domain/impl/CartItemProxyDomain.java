@@ -2,29 +2,21 @@ package domain.impl;
 
 import domain.ICartItemDomain;
 import domain.IItemDomain;
-import repo.IItemRepository;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class CartItemProxyDomain implements ICartItemDomain {
-    private final IItemDomain proxy;
+public class CartItemProxyDomain extends ItemProxy implements ICartItemDomain{
     private int count;
 
     CartItemProxyDomain(IItemDomain proxy, int count) {
-        this.proxy = proxy;
+        super(proxy);
         this.count = count;
     }
 
     @Override
-    public int getItemId() {
-        return proxy.getItemId();
-    }
-
-    @Override
     public boolean hasEnough() {
-        return proxy.hasEnough(count);
+        return super.hasEnough(count);
     }
 
     @Override
@@ -33,23 +25,13 @@ public class CartItemProxyDomain implements ICartItemDomain {
     }
 
     @Override
-    public long getPrice() {
-        return proxy.getPrice() * count;
+    public long getTotalPrice() {
+        return getEachItemPrice() * count;
     }
 
     @Override
     public long getEachItemPrice() {
-        return proxy.getPrice();
-    }
-
-    @Override
-    public String getTitle() {
-        return proxy.getTitle();
-    }
-
-    @Override
-    public String getType() {
-        return proxy.getType();
+        return super.getPrice();
     }
 
     @Override
@@ -58,7 +40,7 @@ public class CartItemProxyDomain implements ICartItemDomain {
     }
 
     @Override
-    public InputStream getImageData() throws IOException {
+    public InputStream getImage() throws IOException {
         return proxy.getImage();
     }
 }

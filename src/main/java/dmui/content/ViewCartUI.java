@@ -1,35 +1,32 @@
 package dmui.content;
 
-import controller.ICartController;
-import controller.ICartItemController;
-import controller.IPaginatorController;
-import controller.IEtcController;
+import controller.cart.ICartController;
+import controller.cart.ICartItemController;
+import utils.IEtc;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+
 import static utils.Utils.countUnitStr;
 
 public class ViewCartUI extends BaseContent {
-    private final ICartController cart;
-    private final IEtcController config;
-    private final List<BasePanel> itemLists;
+    private ICartController cart;
+    private final IEtc config;
     private final JLabel totalLabel;
-    private final JPanel panelList;
-    private final List<ViewCartItemUI> viewCartItemUIList = new ArrayList<>();
+    private final PagedListView<ICartItemController, ICartController> pageListView;
 
-    public ViewCartUI(ICartController cart, IEtcController config) {
+    public ViewCartUI(ICartController cart, IEtc config) {
+        this(config);
+        setController(cart);
+    }
+
+    public ViewCartUI(IEtc config) {
         super("Cart manager");
-        this.cart = cart;
         this.config = config;
-        itemLists = new ArrayList<>();
-        var pane = new BasePanel(new BorderLayout());
 
         var total = new BasePanel();
         totalLabel = new JLabel();
         totalLabel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        updateTotalLabel();
         total.setLayout(new GridBagLayout());
         total.add(totalLabel);
 
@@ -44,57 +41,38 @@ public class ViewCartUI extends BaseContent {
         leftPanel.add(btns, BorderLayout.PAGE_START);
         leftPanel.add(total, BorderLayout.CENTER);
 
+        pageListView = new PagedListView<>(()->new ViewCartItemUI(this));
         setLayout(new BorderLayout());
-        add(pane, BorderLayout.CENTER);
+        add(pageListView, BorderLayout.CENTER);
         add(leftPanel, BorderLayout.LINE_END);
 
-        JPanel top = new JPanel(new BorderLayout());
-        panelList = new JPanel();
-        panelList.setLayout(new BoxLayout(panelList, BoxLayout.Y_AXIS));
-        top.add(panelList, BorderLayout.PAGE_START);
-        var j = new JScrollPane(top);
-        pane.add(j, BorderLayout.CENTER);
-
-        IPaginatorController pager = cart.getPaginatorController();
-        pane.add(new PaginatorUI(pager, List.of(3,5,7,9)), BorderLayout.PAGE_END);
-
-        pager.addCallback((u,v,t)->{
-            displayList(cart.getPage(u, v));
-        });
-        pager.invokeAllCallback();
     }
 
-    private void displayList(List<ICartItemController> list) {
-        int sz = list.size();
-        int i=0;
-        for(;i < Math.min(sz, viewCartItemUIList.size());++i)
-            viewCartItemUIList.get(i).setController(list.get(i));
-
-        for(;i<sz;++i) {
-            var child = new ViewCartItemUI(this, list.get(i));
-            viewCartItemUIList.add(child);
-            panelList.add(child);
-        }
-
-        for(;i<viewCartItemUIList.size();++i)
-            viewCartItemUIList.get(i).setVisible(false);
-
-        panelList.invalidate();
+    public void setController(ICartController cart) {
+        if(cart == null) throw new IllegalArgumentException("not null");
+        this.cart = cart;
+        pageListView.setController(cart);
     }
 
-    void updateTotalLabel() {
+    private void updateTotalLabel() {
         totalLabel.setText(
             "<html>" +
             countUnitStr(cart.getItemCount(), "item") + ", " +
             countUnitStr(cart.getItemTypeCount(), "item type") + "<br>" +
-            "Total without tax: " + cart.getTotalMoney() + " " + config.getCurrency() + "<br>" +
+            "Total without tax: " + cart.getTotalMoney() + " " + config.getCurrencyConfig().currency() + "<br>" +
             "Last update: " + cart.getSavedDate() +
             "</html>");
     }
 
     private JButton payOrderButton() {
         var ret = new JButton("Pay Order");
-        //TODO: add logic
+        ret.addActionListener(e->{
+            var p = (PlaceOrderUI)contentNavigator.get(PlaceOrderUI.class);
+            if(cart.payOrder().isPresent()) {
+                p.setController(cart.payOrder().get());
+                contentNavigator.changeTo(PlaceOrderUI.class);
+            }
+        });
         return ret;
     }
 
@@ -102,5 +80,10 @@ public class ViewCartUI extends BaseContent {
         var ret = new JButton("Clear Cart");
         //TODO: add logic
         return ret;
+    }
+
+    @Override
+    public void reset() {
+        updateTotalLabel();
     }
 }

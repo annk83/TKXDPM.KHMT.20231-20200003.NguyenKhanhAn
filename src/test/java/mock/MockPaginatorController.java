@@ -1,16 +1,21 @@
 package mock;
 
-import controller.IPaginatorController;
+import controller.utils.IPaginatorController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class MockPaginatorController implements IPaginatorController {
     List<PageControlCallback> pageControlCallbacks = new ArrayList<>();
+
     @Override
-    public void addCallback(PageControlCallback callback) {
-        pageControlCallbacks.add(callback);
+    public int addCallback(PageControlCallback callback) {
+        return 0;
+    }
+
+    @Override
+    public void removeCallback(int id) {
+
     }
 
     @Override
