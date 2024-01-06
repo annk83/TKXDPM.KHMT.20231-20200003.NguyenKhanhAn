@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 @Getter @Setter(AccessLevel.MODULE)
 public class SimpleItem implements IItemDomain {
-    private int itemId;
+    private long itemId;
     private String type;
     private String title;
     private long price;

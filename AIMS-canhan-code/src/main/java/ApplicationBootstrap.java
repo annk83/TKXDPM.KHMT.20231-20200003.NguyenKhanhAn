@@ -1,6 +1,5 @@
+import controller.IOrderStarter;
 import controller.impl.CartController;
-import dmui.content.PlaceOrderUI;
-import repo.impl.SQLProvinceRepo;
 import utils.Constant;
 import dmui.content.ViewCartUI;
 import dmui.toplevel.TopLevelFrame;
@@ -9,12 +8,14 @@ import repo.impl.NoProxyRepository;
 import repo.impl.SimpleConnection;
 import utils.IEtc;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ApplicationBootstrap {
     private static final String CART_FILE = "cart.bin";
@@ -38,8 +39,19 @@ public class ApplicationBootstrap {
                     localCart = new LocalCart(fis, repo, topLevelFrame.getMessageDisplayer(),config);
                 }
                 var navigator = topLevelFrame.getContentNavigator();
-                navigator.register(new ViewCartUI(new CartController(localCart, config, new SQLProvinceRepo(dbCon)), new Constant()));
-                navigator.register(new PlaceOrderUI());
+                navigator.register(new ViewCartUI(new CartController(localCart, config, new IOrderStarter() {
+                    @Override
+                    public void payOrder(List<Long> itemIds, List<Integer> count) {
+                        JFrame jFrame = new JFrame("Pay order XDDDDD");
+                        JPanel jPanel = new JPanel();
+                        jFrame.add(jPanel);
+                        jPanel.add(new JLabel(itemIds.toString()));
+                        jPanel.add(new JLabel(count.toString()));
+                        jFrame.pack();
+                        jFrame.setVisible(true);
+                        jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    }
+                }), new Constant()));
                 navigator.changeTo(ViewCartUI.class);
                 topLevelFrame.run();
             } catch (SQLException sqlException) {

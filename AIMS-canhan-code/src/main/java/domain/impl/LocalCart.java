@@ -3,7 +3,6 @@ package domain.impl;
 import dmui.IMessageDisplayer;
 import domain.ICartDomain;
 import domain.ICartItemDomain;
-import domain.IOrderDomain;
 import repo.IItemRepository;
 import repo.ItemDeletedException;
 import utils.IEtc;
@@ -14,7 +13,7 @@ import java.io.OutputStream;
 import java.util.*;
 
 public class LocalCart implements ICartDomain {
-    private final Map<Integer, ICartItemDomain> idMap;
+    private final Map<Long, ICartItemDomain> idMap;
     private final List<ICartItemDomain> items;
     private final Date savedDate;
     private final IItemRepository repository;
@@ -28,7 +27,7 @@ public class LocalCart implements ICartDomain {
         idMap = new HashMap<>();
         this.repository = iItemProvider;
         try {
-            List<Integer> ids = Arrays.stream(properties.getProperty("itemIds").split(",")).map(Integer::parseInt).toList();
+            List<Long> ids = Arrays.stream(properties.getProperty("itemIds").split(",")).map(Long::parseLong).toList();
             List<Integer> cnts = Arrays.stream(properties.getProperty("counts").split(",")).map(Integer::parseInt).toList();
             if(ids.size() != cnts.size()) throw new IOException("data corrupted");
             items = new ArrayList<>();
@@ -48,7 +47,7 @@ public class LocalCart implements ICartDomain {
     }
 
     @Override
-    public void addItem(int itemId, int count) {
+    public void addItem(long itemId, int count) {
         var k = idMap.get(itemId);
         if(k == null) {
             try {
@@ -63,7 +62,7 @@ public class LocalCart implements ICartDomain {
     }
 
     @Override
-    public void removeItem(int item) {
+    public void removeItem(long item) {
         items.remove(idMap.remove(item));
     }
 
@@ -93,8 +92,8 @@ public class LocalCart implements ICartDomain {
     }
 
     @Override
-    public IOrderDomain startOrder() {
-        return new LocalOrder(config, items.stream().map(ICartItemDomain::getItemId).toList(), items.stream().map(ICartItemDomain::getCount).toList(), null, repository, messager);
+    public List<ICartItemDomain> getAll() {
+        return new ArrayList<>(idMap.values());
     }
 
     public void saveToOutputStream(OutputStream os) throws IOException {
@@ -110,7 +109,7 @@ public class LocalCart implements ICartDomain {
         Properties properties = new Properties();
         properties.setProperty("itemIds", ids.toString());
         properties.setProperty("counts", cnts.toString());
-        properties.setProperty("lastSaved", String.valueOf(savedDate.getTime()));
+        properties.setProperty("lastSaved", String.valueOf(new Date().getTime()));
         properties.store(os, null);
     }
 }

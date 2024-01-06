@@ -11,12 +11,12 @@ import java.util.NoSuchElementException;
 public class NoProxyRepository implements IItemRepository {
     private final SimpleConnection simpleConnection;
 
-    @Override public IItemDomain getItemById(int id) throws ItemDeletedException {
+    @Override public IItemDomain getItemById(long id) throws ItemDeletedException {
         var i = new SimpleItem();
         try {
             return simpleConnection.doStuff(conn -> {
-                try (var stmt = conn.prepareStatement("SELECT type, title, price, remain, image, deleted, weight, rushable FROM items WHERE item_id = ?")) {
-                    stmt.setInt(1, id);
+                try (var stmt = conn.prepareStatement("SELECT type, title, price, remain, image, deleted, weight, 0 as rushable FROM items WHERE item_id = ?")) {
+                    stmt.setLong(1, id);
                     var rs = stmt.executeQuery();
                     if (rs.next()) {
                         i.setItemId(id);
@@ -39,14 +39,5 @@ public class NoProxyRepository implements IItemRepository {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    @Override
-    public IItemDomain save(IItemDomain item) {
-        return item;
-    }
-
-    @Override
-    public void delete(int id) {
     }
 }

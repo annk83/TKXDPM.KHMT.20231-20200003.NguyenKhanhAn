@@ -1,26 +1,26 @@
 package controller.impl;
 
+import controller.IOrderStarter;
 import controller.cart.ICartController;
 import controller.cart.ICartItemController;
-import controller.order.IOrderController;
-import repo.IProvinceRepo;
+import domain.ICartItemDomain;
 import utils.IEtc;
 import controller.utils.IPaginatorController;
 import domain.ICartDomain;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CartController extends BaseController implements ICartController {
     final ICartDomain cart;
     final BoundedPaginator paginator;
-    final IProvinceRepo iProvinceRepo;
+    final IOrderStarter iOrderStarter;
 
-    public CartController(ICartDomain cart, IEtc etc, IProvinceRepo iProvinceRepo) {
+    public CartController(ICartDomain cart, IEtc etc, IOrderStarter iOrderStarter) {
         super(etc);
         this.cart = cart;
         paginator = new BoundedPaginator(this::getItemTypeCount, etc.getDefaultPageSize());
-        this.iProvinceRepo = iProvinceRepo;
+        this.iOrderStarter = iOrderStarter;
     }
 
     @Override
@@ -54,8 +54,18 @@ public class CartController extends BaseController implements ICartController {
     }
 
     @Override
-    public Optional<IOrderController> payOrder() {
-        if(cart.hasEnough()) return Optional.of(new OrderController(config, cart.startOrder(), iProvinceRepo));
-        else return Optional.empty();
+    public boolean payOrder() {
+        if(cart.hasEnough()) {
+            var lst = cart.getAll();
+            List<Integer> countList = new ArrayList<>();
+            List<Long> itemIds = new ArrayList<>();
+            for(ICartItemDomain item : lst) {
+                countList.add(item.getCount());
+                itemIds.add(item.getItemId());
+            }
+            iOrderStarter.payOrder(itemIds, countList);
+            return true;
+        }
+        return false;
     }
 }

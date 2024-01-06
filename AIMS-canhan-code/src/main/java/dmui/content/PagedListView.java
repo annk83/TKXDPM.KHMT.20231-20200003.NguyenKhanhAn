@@ -24,6 +24,7 @@ public class PagedListView<CHILD_CONTROLLER, CONTROLLER extends IPageableControl
         panelList.setLayout(new BoxLayout(panelList, BoxLayout.Y_AXIS));
         top.add(panelList, BorderLayout.PAGE_START);
         var j = new JScrollPane(top);
+        paginatorUI.setPageSizeList(List.of(3,5,7));
         add(j, BorderLayout.CENTER);
         add(paginatorUI, BorderLayout.PAGE_END);
    }

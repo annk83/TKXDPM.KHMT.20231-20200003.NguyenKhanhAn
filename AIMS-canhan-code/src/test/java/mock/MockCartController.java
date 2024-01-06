@@ -2,7 +2,6 @@ package mock;
 
 import controller.cart.ICartController;
 import controller.cart.ICartItemController;
-import controller.order.IOrderController;
 import controller.utils.IPaginatorController;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class MockCartController implements ICartController {
     }
 
     @Override
-    public Optional<IOrderController> payOrder() {
-        return null;
+    public boolean payOrder() {
+        return false;
     }
 }

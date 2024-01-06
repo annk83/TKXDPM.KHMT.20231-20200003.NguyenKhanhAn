@@ -1,7 +1,6 @@
 package domain.impl;
 
 import domain.IItemDomain;
-import repo.IProvinceRepo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +13,7 @@ public class ItemProxy implements IItemDomain {
     }
 
     @Override
-    public int getItemId() {
+    public long getItemId() {
         return proxy.getItemId();
     }
 

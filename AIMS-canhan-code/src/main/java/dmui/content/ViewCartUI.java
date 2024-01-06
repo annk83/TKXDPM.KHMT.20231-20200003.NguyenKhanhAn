@@ -35,7 +35,6 @@ public class ViewCartUI extends BaseContent {
         var c = new GridBagConstraints();
         btns.add(payOrderButton(), c);
         c.gridy = 1;
-        btns.add(clearCartButton(), c);
 
         var leftPanel = new BasePanel(new BorderLayout());
         leftPanel.add(btns, BorderLayout.PAGE_START);
@@ -67,18 +66,8 @@ public class ViewCartUI extends BaseContent {
     private JButton payOrderButton() {
         var ret = new JButton("Pay Order");
         ret.addActionListener(e->{
-            var p = (PlaceOrderUI)contentNavigator.get(PlaceOrderUI.class);
-            if(cart.payOrder().isPresent()) {
-                p.setController(cart.payOrder().get());
-                contentNavigator.changeTo(PlaceOrderUI.class);
-            }
+            cart.payOrder();
         });
-        return ret;
-    }
-
-    private JButton clearCartButton() {
-        var ret = new JButton("Clear Cart");
-        //TODO: add logic
         return ret;
     }
 

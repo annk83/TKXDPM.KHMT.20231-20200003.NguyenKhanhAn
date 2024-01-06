@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public interface IItemDomain {
-    int getItemId();
+    long getItemId();
     String getType();
     String getTitle();
     long getPrice();

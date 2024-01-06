@@ -65,7 +65,7 @@ public class PaginatorUI extends BasePanel {
         pageSizeModel.setSelectedItem(sizes.get(0));
     }
     private void render(int st, int ed, int ic) {
-        description.setText("%s - %s of %s".formatted(st, ed, ic));
+        description.setText("%s - %s of %s".formatted(st+1, ed, ic));
         if(ed == ic) {
             next.setEnabled(false);
             last.setEnabled(false);
